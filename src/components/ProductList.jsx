@@ -1,4 +1,5 @@
 import useFetch from "../hooks/useFetch";
+import ProductCard from "./ProductCard";
 
 function ProductList()
 {
@@ -6,39 +7,39 @@ function ProductList()
         "https://api.escuelajs.co/api/v1/products"
     );
 
-    if (loading)
-    {
-        return <h2>Loading...</h2>;
-    }
+    if(loading)
+{
+    return (
+        <div className="loading">
+            Loading Products...
+        </div>
+    );
+}
 
     if (error)
     {
         return <h2>{error}</h2>;
     }
   return (
-    <div>
-    <h1>Products</h1>
-        {
-        data.map((product) =>
-            {
-            return (
-            <div
-            key={product.id}>
-               <img
-                src={product.images[0]}
-                alt={product.title}
-                width="200"/>
-                <h3>
-                {product.title}
-                </h3>
-                <p>
-                ₹ {product.price}
-                </p>
-                </div>
+    <div className="container">
 
-                );
-            })
-        }
+        <h1>Products</h1>
+
+        <div className="products">
+
+            {
+                 data.map((product) =>
+    {
+        return (
+            <ProductCard
+                key={product.id}
+                product={product}
+            />
+        );
+                })
+            }
+
+        </div>
 
     </div>
 );
